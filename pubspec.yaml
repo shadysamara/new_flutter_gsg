@@ -39,10 +39,6 @@ dev_dependencies:
 # The following section is specific to Flutter.
 flutter:
   fonts:
-    - family: myFont1
-      fonts:
-        - asset: assets/fonts/ITCBLKAD.TTF
-     
     - family: myFont
       fonts:
         - asset: assets/fonts/BrushScriptStd.otf
