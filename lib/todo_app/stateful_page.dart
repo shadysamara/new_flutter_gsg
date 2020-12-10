@@ -31,6 +31,11 @@ class MyPageState extends State<MyPage> with SingleTickerProviderStateMixin {
     setState(() {});
   }
 
+  removeTask(Task task) {
+    tasks.remove(task);
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
     print('hello from build');
@@ -59,18 +64,20 @@ class MyPageState extends State<MyPage> with SingleTickerProviderStateMixin {
       ),
       body: TabBarView(controller: tabController, children: [
         Column(
-          children: tasks.map((e) => TodoWidget(e, toggleTaskStatus)).toList(),
+          children: tasks
+              .map((e) => TodoWidget(e, toggleTaskStatus, removeTask))
+              .toList(),
         ),
         Column(
           children: tasks
               .where((element) => element.isComplete == true)
-              .map((e) => TodoWidget(e, toggleTaskStatus))
+              .map((e) => TodoWidget(e, toggleTaskStatus, removeTask))
               .toList(),
         ),
         Column(
           children: tasks
               .where((element) => !element.isComplete)
-              .map((e) => TodoWidget(e, toggleTaskStatus))
+              .map((e) => TodoWidget(e, toggleTaskStatus, removeTask))
               .toList(),
         )
       ]),
@@ -81,7 +88,8 @@ class MyPageState extends State<MyPage> with SingleTickerProviderStateMixin {
 class TodoWidget extends StatefulWidget {
   Task task;
   Function fun;
-  TodoWidget(this.task, this.fun);
+  Function deleteFun;
+  TodoWidget(this.task, this.fun, this.deleteFun);
   @override
   _TodoWidgetState createState() => _TodoWidgetState();
 }
@@ -94,6 +102,11 @@ class _TodoWidgetState extends State<TodoWidget> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
+          IconButton(
+              icon: Icon(Icons.delete),
+              onPressed: () {
+                widget.deleteFun(widget.task);
+              }),
           Text(widget.task.taskName),
           Checkbox(
               value: widget.task.isComplete,
