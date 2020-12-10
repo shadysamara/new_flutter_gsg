@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:gsg_flutter/tasks_mock.dart';
+import 'package:gsg_flutter/todo_app/tasks_mock.dart';
 
 class TodoApp extends StatelessWidget {
   const TodoApp({Key key}) : super(key: key);

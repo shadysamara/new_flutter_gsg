@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:gsg_flutter/assigment1.dart';
 import 'package:gsg_flutter/assigment2.dart';
-import 'package:gsg_flutter/stateful_page.dart';
-import 'package:gsg_flutter/todo_app.dart';
+import 'package:gsg_flutter/todo_app/stateful_page.dart';
+import 'package:gsg_flutter/todo_app/todo_app.dart';
 
 void main() {
   runApp(MyApp());
