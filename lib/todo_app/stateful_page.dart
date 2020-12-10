@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gsg_flutter/models/task_model.dart';
 import 'package:gsg_flutter/todo_app/tasks_mock.dart';
+import 'package:gsg_flutter/utilities/dialougs.dart';
 
 /// 1- create state => class extends StatefulWidget
 ///
@@ -25,6 +26,32 @@ class MyPageState extends State<MyPage> with SingleTickerProviderStateMixin {
 
   List names = ['ameer', 'omair', 'osama', 'wsam'];
   int bnbIndex = 0;
+
+  showCustomDialoug(BuildContext context, Task task) {
+    return showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: Text('Alert'),
+          content: Text('You Will Delete A task, are you sure?'),
+          actions: [
+            FlatButton(
+                child: Text('Ok'),
+                onPressed: () {
+                  removeTask(task);
+                  Navigator.pop(context);
+                }),
+            FlatButton(
+                child: Text('No'),
+                onPressed: () {
+                  Navigator.pop(context);
+                })
+          ],
+        );
+      },
+    );
+  }
+
   toggleTaskStatus(Task task, bool newState) {
     int taskIndex = tasks.indexOf(task);
     tasks[taskIndex].isComplete = newState;
@@ -65,19 +92,19 @@ class MyPageState extends State<MyPage> with SingleTickerProviderStateMixin {
       body: TabBarView(controller: tabController, children: [
         Column(
           children: tasks
-              .map((e) => TodoWidget(e, toggleTaskStatus, removeTask))
+              .map((e) => TodoWidget(e, toggleTaskStatus, showCustomDialoug))
               .toList(),
         ),
         Column(
           children: tasks
               .where((element) => element.isComplete == true)
-              .map((e) => TodoWidget(e, toggleTaskStatus, removeTask))
+              .map((e) => TodoWidget(e, toggleTaskStatus, showCustomDialoug))
               .toList(),
         ),
         Column(
           children: tasks
               .where((element) => !element.isComplete)
-              .map((e) => TodoWidget(e, toggleTaskStatus, removeTask))
+              .map((e) => TodoWidget(e, toggleTaskStatus, showCustomDialoug))
               .toList(),
         )
       ]),
@@ -105,7 +132,7 @@ class _TodoWidgetState extends State<TodoWidget> {
           IconButton(
               icon: Icon(Icons.delete),
               onPressed: () {
-                widget.deleteFun(widget.task);
+                widget.deleteFun(context, widget.task);
               }),
           Text(widget.task.taskName),
           Checkbox(

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 class Utilities extends StatelessWidget {
-  showCustomDialoug(BuildContext context) {
-    showDialog(
+  Future<bool> showCustomDialoug(BuildContext context) async {
+    return showDialog(
       context: context,
       builder: (context) {
         return AlertDialog(
@@ -12,12 +12,14 @@ class Utilities extends StatelessWidget {
             FlatButton(
                 child: Text('Ok'),
                 onPressed: () {
-                  print('user pressed ok');
+                  Navigator.pop(context);
+                  return true;
                 }),
             FlatButton(
                 child: Text('No'),
                 onPressed: () {
-                  print('user pressed no');
+                  print('no');
+                  return false;
                 })
           ],
         );
@@ -25,15 +27,53 @@ class Utilities extends StatelessWidget {
     );
   }
 
+  showCustomSnackbar(String content, BuildContext context) {
+    Scaffold.of(context).showSnackBar(SnackBar(
+      content: Text(content),
+      action: SnackBarAction(
+        label: 'Close',
+        onPressed: () {
+          Scaffold.of(context).hideCurrentSnackBar();
+        },
+      ),
+    ));
+  }
+
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
     return Scaffold(
       body: Center(
-        child: RaisedButton(onPressed: () {
-          showCustomDialoug(context);
-        }),
+        child: Builder(
+          builder: (context) {
+            return RaisedButton(onPressed: () async {
+              showCustomSnackbar('my first snackbar in flutter', context);
+            });
+          },
+        ),
       ),
     );
+  }
+}
+
+class CustomButton extends StatelessWidget {
+  showCustomSnackbar(String content, BuildContext context) {
+    Scaffold.of(context).showSnackBar(SnackBar(
+      content: Text(content),
+      action: SnackBarAction(
+        label: 'Close',
+        onPressed: () {
+          Scaffold.of(context).hideCurrentSnackBar();
+        },
+      ),
+    ));
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    // TODO: implement build
+    return RaisedButton(onPressed: () async {
+      showCustomSnackbar('my first snackbar in flutter', context);
+    });
   }
 }

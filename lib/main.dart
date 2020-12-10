@@ -3,6 +3,7 @@ import 'package:gsg_flutter/assigment1.dart';
 import 'package:gsg_flutter/assigment2.dart';
 import 'package:gsg_flutter/todo_app/stateful_page.dart';
 import 'package:gsg_flutter/todo_app/todo_app.dart';
+import 'package:gsg_flutter/utilities.dart';
 
 void main() {
   runApp(MyApp());
@@ -14,9 +15,7 @@ class MyApp extends StatelessWidget {
     // TODO: implement build
     return MaterialApp(
       title: 'GSG test',
-      home: MyPage(
-        userName: 'shady',
-      ),
+      home: Utilities(),
     );
   }
 }
