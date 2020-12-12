@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gsg_flutter/models/task_model.dart';
 import 'package:gsg_flutter/todo_app/tasks_mock.dart';
+import 'package:gsg_flutter/utilities/custom_drawer.dart';
 import 'package:gsg_flutter/utilities/dialougs.dart';
 
 /// 1- create state => class extends StatefulWidget
@@ -63,20 +64,46 @@ class MyPageState extends State<MyPage> with SingleTickerProviderStateMixin {
     setState(() {});
   }
 
+  allCompleteFunction() {
+    tabController.animateTo(0);
+    Navigator.pop(context);
+  }
+
+  CompleteFunction() {
+    tabController.animateTo(1);
+    Navigator.pop(context);
+  }
+
+  inCompleteFunction() {
+    tabController.animateTo(2);
+    Navigator.pop(context);
+  }
+
   @override
   Widget build(BuildContext context) {
     print('hello from build');
     // TODO: implement build
     return Scaffold(
+      // endDrawer: Drawer(
+      //   child: Column(
+      //     children: [
+      //       Text('child1'),
+      //       Text('child1'),
+      //       Text('child1'),
+      //       Text('child1'),
+      //       Text('child1'),
+      //       Text('child1'),
+      //     ],
+      //   ),
+      // ),
+      drawerEnableOpenDragGesture: false,
+      drawer: CustomDrawer(
+        fun1: allCompleteFunction,
+        fun2: CompleteFunction,
+        fun3: inCompleteFunction,
+      ),
       appBar: AppBar(
-        actions: [
-          IconButton(
-              icon: Icon(Icons.done),
-              onPressed: () {
-                tabController.animateTo(1);
-              })
-        ],
-        title: Text(widget.userName),
+        title: Text('Todo '),
         bottom: TabBar(controller: tabController, tabs: [
           Tab(
             child: Text('All Tasks'),
@@ -90,11 +117,30 @@ class MyPageState extends State<MyPage> with SingleTickerProviderStateMixin {
         ]),
       ),
       body: TabBarView(controller: tabController, children: [
-        Column(
-          children: tasks
-              .map((e) => TodoWidget(e, toggleTaskStatus, showCustomDialoug))
-              .toList(),
-        ),
+        GridView.builder(
+            gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
+                childAspectRatio: 1,
+                maxCrossAxisExtent: 200,
+                crossAxisSpacing: 5,
+                mainAxisSpacing: 5),
+            itemCount: tasks.length,
+            itemBuilder: (context, index) {
+              return Container(
+                alignment: Alignment.center,
+                color: Colors.blueAccent,
+                child: Text(tasks[index].taskName),
+              );
+            }),
+        // ListView.separated(
+        //   separatorBuilder: (context, index) {
+        //     return Divider();
+        //   },
+        //   itemCount: tasks.length,
+        //   itemBuilder: (context, index) {
+        //     return TodoWidget(
+        //         tasks[index], toggleTaskStatus, showCustomDialoug);
+        //   },
+        // ),
         Column(
           children: tasks
               .where((element) => element.isComplete == true)

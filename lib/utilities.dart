@@ -46,9 +46,7 @@ class Utilities extends StatelessWidget {
       body: Center(
         child: Builder(
           builder: (context) {
-            return RaisedButton(onPressed: () async {
-              showCustomSnackbar('my first snackbar in flutter', context);
-            });
+            return Container();
           },
         ),
       ),
