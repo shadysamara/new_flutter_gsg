@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:gsg_flutter/excersice/ui/pages/excersice_page.dart';
 import 'package:gsg_flutter/todo_app/responsive_design.dart';
 import 'package:localize_and_translate/localize_and_translate.dart';
 
@@ -18,7 +19,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     // TODO: implement build
     return MaterialApp(
-      home: ResponsiveDesign(),
+      home: OrderPage(),
       localizationsDelegates: translator.delegates, // Android + iOS Delegates
       locale: translator.locale, // Active locale
       supportedLocales: translator.locals(),
