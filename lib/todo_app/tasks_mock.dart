@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:gsg_flutter/models/task_model.dart';
 
 List<Task> tasks = [
@@ -8,11 +9,4 @@ List<Task> tasks = [
   Task('watching tv', false),
   Task('programming', true),
   Task('shopping', true),
-  Task('playing football2', true),
-  Task('praying aser2', false),
-  Task('have launch2', false),
-  Task('studying2', false),
-  Task('watching tv2', false),
-  Task('programming2', true),
-  Task('shopping2', true),
 ];

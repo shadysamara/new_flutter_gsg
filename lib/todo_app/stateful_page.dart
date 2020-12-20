@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get/route_manager.dart';
 import 'package:gsg_flutter/models/task_model.dart';
+import 'package:gsg_flutter/todo_app/new_task_page.dart';
 import 'package:gsg_flutter/todo_app/tasks_mock.dart';
 import 'package:gsg_flutter/utilities/custom_drawer.dart';
 import 'package:gsg_flutter/utilities/dialougs.dart';
@@ -79,11 +81,20 @@ class MyPageState extends State<MyPage> with SingleTickerProviderStateMixin {
     Navigator.pop(context);
   }
 
+  thisSetState() {
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
-    print('hello from build');
     // TODO: implement build
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        child: Icon(Icons.add),
+        onPressed: () async {
+          Get.to(NewTaskPage(thisSetState));
+        },
+      ),
       // endDrawer: Drawer(
       //   child: Column(
       //     children: [
@@ -117,20 +128,11 @@ class MyPageState extends State<MyPage> with SingleTickerProviderStateMixin {
         ]),
       ),
       body: TabBarView(controller: tabController, children: [
-        GridView.builder(
-            gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-                childAspectRatio: 1,
-                maxCrossAxisExtent: 200,
-                crossAxisSpacing: 5,
-                mainAxisSpacing: 5),
-            itemCount: tasks.length,
-            itemBuilder: (context, index) {
-              return Container(
-                alignment: Alignment.center,
-                color: Colors.blueAccent,
-                child: Text(tasks[index].taskName),
-              );
-            }),
+        Column(
+          children: tasks
+              .map((e) => TodoWidget(e, toggleTaskStatus, showCustomDialoug))
+              .toList(),
+        ),
         // ListView.separated(
         //   separatorBuilder: (context, index) {
         //     return Divider();
