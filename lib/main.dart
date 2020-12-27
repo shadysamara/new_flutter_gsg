@@ -1,8 +1,10 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:gsg_flutter/excersice/ui/pages/excersice_page.dart';
-import 'package:gsg_flutter/todo_app/responsive_design.dart';
+import 'package:gsg_flutter/todo_app/providers/todo_provider.dart';
 import 'package:localize_and_translate/localize_and_translate.dart';
+import 'package:provider/provider.dart';
+
+import 'todo_app/todo_app.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -17,12 +19,16 @@ void main() async {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
-    return MaterialApp(
-      home: OrderPage(),
-      localizationsDelegates: translator.delegates, // Android + iOS Delegates
-      locale: translator.locale, // Active locale
-      supportedLocales: translator.locals(),
+    return ChangeNotifierProvider<TodoProvider>(
+      create: (context) {
+        return TodoProvider();
+      },
+      child: MaterialApp(
+        home: TodoApp(),
+        localizationsDelegates: translator.delegates, // Android + iOS Delegates
+        locale: translator.locale, // Active locale
+        supportedLocales: translator.locals(),
+      ),
     );
   }
 }

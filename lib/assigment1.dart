@@ -42,14 +42,6 @@ class Assigment1 extends StatelessWidget {
             Container(
               height: 200,
               width: 200,
-              decoration: BoxDecoration(
-                  gradient: LinearGradient(colors: [Colors.red, Colors.white]),
-                  shape: BoxShape.circle,
-                  image: DecorationImage(
-                      colorFilter: ColorFilter.mode(
-                          Colors.black.withOpacity(0.2), BlendMode.dstATop),
-                      image: AssetImage('assets/images/van.jpg'),
-                      fit: BoxFit.cover)),
             ),
             Divider(),
             ProfileWidget(

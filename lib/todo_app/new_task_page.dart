@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
 import 'package:gsg_flutter/models/task_model.dart';
-import 'package:gsg_flutter/todo_app/tasks_mock.dart';
+import 'package:gsg_flutter/todo_app/providers/todo_provider.dart';
+import 'package:provider/provider.dart';
 
 class NewTaskPage extends StatefulWidget {
   Function fun;
@@ -55,7 +56,7 @@ class _NewTaskPageState extends State<NewTaskPage> {
                 child: Text('Submit', style: TextStyle(color: Colors.white)),
                 onPressed: () {
                   Task task = Task(taskName, isComplete);
-                  tasks.add(task);
+                  context.read<TodoProvider>().addNewTask(task);
                   widget.fun();
                   Get.back();
                 }),
