@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gsg_flutter/excersice/ui/pages/excersice_page.dart';
+import 'package:gsg_flutter/todo_app/providers/db_helper.dart';
 import 'package:gsg_flutter/todo_app/providers/todo_provider.dart';
 import 'package:gsg_flutter/todo_app/shared_test.dart';
 import 'package:gsg_flutter/todo_app/sp_helper.dart';
@@ -11,6 +12,7 @@ import 'todo_app/todo_app.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await SpHelper.spHelper.initSharedPrefrences();
+  await DBHelper.dbHelper.initDatabase();
   await translator.init(
       localeDefault: LocalizationDefaultType.device,
       languagesList: <String>['ar', 'en'],

@@ -10,7 +10,6 @@ class FileHelper {
     try {
       Directory appDocDir = await getApplicationDocumentsDirectory();
       String appDocPath = appDocDir.path;
-
       String filePath = join(appDocPath, 'shady.txt');
       File file = File(filePath);
       file.writeAsString('hello this is my first words in this file');
