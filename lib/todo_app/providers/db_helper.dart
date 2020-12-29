@@ -35,4 +35,26 @@ age INTEGER NOT NULL,
 gender INTEGER
 )''');
   }
+
+  insertintoDatabase() async {
+    Map<String, dynamic> map = {'name': 'shady', 'age': 32, 'gender': 1};
+    int rowIndex = await database.insert('testTable', map);
+    print(rowIndex);
+  }
+
+  getAllDataFromDatabase() async {
+    List<Map<String, dynamic>> results =
+        await database.query('testTable', where: 'name=?', whereArgs: ['omar']);
+    print(results);
+  }
+
+  getOneRowFromDatabase() {}
+  deleteDataFromDatabase() {
+    database.delete('testTable', where: 'name=?', whereArgs: ['omar']);
+  }
+
+  updateDataInDatabase() {
+    Map<String, dynamic> map = {'name': 'shady2', 'age': 32, 'gender': 1};
+    database.update('testTable', map, where: 'id=?', whereArgs: [2]);
+  }
 }
