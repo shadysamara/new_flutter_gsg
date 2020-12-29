@@ -8,6 +8,15 @@ class SpHelper {
     sharedPreferences = await SharedPreferences.getInstance();
   }
 
+  bool isFirstTime() {
+    bool isFirstTime = sharedPreferences.getBool('isFirstTime');
+    return isFirstTime ?? true;
+  }
+
+  changeFirstTime() {
+    sharedPreferences.setBool('isFirstTime', false);
+  }
+
   saveDataToSharedPrefences() {
     sharedPreferences.setBool('boolValue', true);
     sharedPreferences.setDouble('doubleValue', 50.2);
@@ -23,5 +32,6 @@ class SpHelper {
 
   clearDateFromSharedPrefrences() {
     sharedPreferences.remove('listValue');
+    sharedPreferences.clear();
   }
 }
