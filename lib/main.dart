@@ -10,8 +10,6 @@ import 'package:gsg_flutter/todo_app/ui/screens/splach.dart';
 import 'package:localize_and_translate/localize_and_translate.dart';
 import 'package:provider/provider.dart';
 
-import 'package:gsg_flutter/todo_app/ui/todo_app.dart';
-
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await SpHelper.spHelper.initSharedPrefrences();
@@ -32,7 +30,7 @@ class MyApp extends StatelessWidget {
         return DatabaseProvider();
       },
       child: MaterialApp(
-        home: TodoApp(),
+        home: SplachScreen(),
         localizationsDelegates: translator.delegates, // Android + iOS Delegates
         locale: translator.locale, // Active locale
         supportedLocales: translator.locals(),

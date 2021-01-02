@@ -8,10 +8,9 @@ import 'package:provider/provider.dart';
 class SplachScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    Provider.of<DatabaseProvider>(context).getAllTasks();
     Future.delayed(Duration(seconds: 3)).then((value) {
-      Navigator.of(context)
-          .pushReplacement(MaterialPageRoute(builder: (context) {
+      Provider.of<DatabaseProvider>(context, listen: false).getAllTasks();
+      Navigator.of(context).push(MaterialPageRoute(builder: (context) {
         return TodoApp();
       }));
     });
