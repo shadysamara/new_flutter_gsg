@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gsg_flutter/todo_app/providers/todo_provider.dart';
-import 'package:gsg_flutter/todo_app/todo_widget.dart';
+import 'package:gsg_flutter/todo_app/ui/widgets/todo_widget.dart';
 import 'package:provider/provider.dart';
 
 class TodoApp extends StatelessWidget {

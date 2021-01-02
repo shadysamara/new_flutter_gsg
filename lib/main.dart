@@ -1,18 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:gsg_flutter/excersice/ui/pages/excersice_page.dart';
-import 'package:gsg_flutter/todo_app/providers/db_helper.dart';
+import 'package:gsg_flutter/todo_app/services/db_helper.dart';
+import 'package:gsg_flutter/todo_app/services/task_db_helper.dart';
 import 'package:gsg_flutter/todo_app/providers/todo_provider.dart';
-import 'package:gsg_flutter/todo_app/shared_test.dart';
-import 'package:gsg_flutter/todo_app/sp_helper.dart';
+import 'package:gsg_flutter/todo_app/delteted/shared_test.dart';
+import 'package:gsg_flutter/todo_app/delteted/sp_helper.dart';
 import 'package:localize_and_translate/localize_and_translate.dart';
 import 'package:provider/provider.dart';
 
-import 'todo_app/todo_app.dart';
+import 'todo_app/ui/screens/todo_app.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await SpHelper.spHelper.initSharedPrefrences();
-  await DBHelper.dbHelper.initDatabase();
+  await TaskDbHelper.taskDbHelper.initializeTasksDatabase();
   await translator.init(
       localeDefault: LocalizationDefaultType.device,
       languagesList: <String>['ar', 'en'],
