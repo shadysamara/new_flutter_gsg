@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../models/task_model.dart';
 
-class TodoProvider extends ChangeNotifier {
+class TodoProvider2 extends ChangeNotifier {
   List<Task> tasks = [
     Task('playing football', true),
     Task('praying aser', false),

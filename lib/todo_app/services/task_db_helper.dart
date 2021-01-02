@@ -9,7 +9,7 @@ import 'package:path/path.dart';
 class TaskDbHelper {
   TaskDbHelper._();
   static TaskDbHelper taskDbHelper = TaskDbHelper._();
-  static final String databaseName = 'tasks.db';
+  static final String databaseName = 'tasksDatabase.db';
   static final String tableName = 'tasks';
   static final String taskIdColumnName = 'taskId';
   static final String taskNameColumnName = 'taskName';
@@ -24,14 +24,14 @@ class TaskDbHelper {
   Future<Database> connectToTasksDatabase() async {
     Directory directory = await getApplicationDocumentsDirectory();
     String databasePath = join(directory.path, databaseName);
-    Database database = await openDatabase(
-      databasePath,
-      version: 1,
-      onCreate: (db, version) {},
-    );
+    Database database =
+        await openDatabase(databasePath, version: 2, onCreate: (db, version) {
+      createTasksTable(db);
+    });
+    return database;
   }
 
-  createTasksTable(Database database, int version) {
+  createTasksTable(Database database) {
     database.execute('''CREATE TABLE $tableName(
 $taskIdColumnName INTEGER PRIMARY KEY AUTOINCREMENT,
 $taskNameColumnName TEXT NOT NULL,
@@ -48,11 +48,12 @@ $taskIsCompleteColumnName INTEGER NOT NULL
     }
   }
 
-  selectAllTasks() async {
+  Future<List<Map<String, dynamic>>> selectAllTasks() async {
     try {
       List<Map<String, dynamic>> allRows = await database.query(tableName);
+      return allRows;
     } on Exception catch (e) {
-      // TODO
+      print(e);
     }
   }
 

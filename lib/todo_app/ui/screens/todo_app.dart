@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gsg_flutter/todo_app/providers/database_provider.dart';
 import 'package:gsg_flutter/todo_app/providers/todo_provider.dart';
 import 'package:gsg_flutter/todo_app/ui/widgets/todo_widget.dart';
 import 'package:provider/provider.dart';
@@ -24,7 +25,7 @@ class TodoApp extends StatelessWidget {
             )
           ]),
         ),
-        body: Consumer<TodoProvider>(
+        body: Consumer<DatabaseProvider>(
           builder: (context, value, child) {
             return TabBarView(children: [
               Column(

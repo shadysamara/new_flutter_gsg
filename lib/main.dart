@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:gsg_flutter/excersice/ui/pages/excersice_page.dart';
+import 'package:gsg_flutter/todo_app/providers/database_provider.dart';
 import 'package:gsg_flutter/todo_app/services/db_helper.dart';
 import 'package:gsg_flutter/todo_app/services/task_db_helper.dart';
 import 'package:gsg_flutter/todo_app/providers/todo_provider.dart';
 import 'package:gsg_flutter/todo_app/delteted/shared_test.dart';
 import 'package:gsg_flutter/todo_app/delteted/sp_helper.dart';
+import 'package:gsg_flutter/todo_app/ui/screens/splach.dart';
 import 'package:localize_and_translate/localize_and_translate.dart';
 import 'package:provider/provider.dart';
 
-import 'todo_app/ui/screens/todo_app.dart';
+import 'package:gsg_flutter/todo_app/ui/todo_app.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -25,12 +27,12 @@ void main() async {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider<TodoProvider>(
+    return ChangeNotifierProvider<DatabaseProvider>(
       create: (context) {
-        return TodoProvider();
+        return DatabaseProvider();
       },
       child: MaterialApp(
-        home: SharedTest(),
+        home: TodoApp(),
         localizationsDelegates: translator.delegates, // Android + iOS Delegates
         locale: translator.locale, // Active locale
         supportedLocales: translator.locals(),

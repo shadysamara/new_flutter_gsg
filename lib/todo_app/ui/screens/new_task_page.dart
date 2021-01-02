@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
-import 'package:gsg_flutter/models/task_model.dart';
+import 'package:gsg_flutter/todo_app/models/task_model.dart';
+import 'package:gsg_flutter/todo_app/providers/database_provider.dart';
 import 'package:gsg_flutter/todo_app/providers/todo_provider.dart';
 import 'package:provider/provider.dart';
 
 class NewTaskPage extends StatefulWidget {
-  Function fun;
-  NewTaskPage(this.fun);
   @override
   _NewTaskPageState createState() => _NewTaskPageState();
 }
@@ -54,11 +53,13 @@ class _NewTaskPageState extends State<NewTaskPage> {
                 ),
                 color: Colors.blueAccent,
                 child: Text('Submit', style: TextStyle(color: Colors.white)),
-                onPressed: () {
-                  Task task = Task(taskName, isComplete);
-                  context.read<TodoProvider>().addNewTask(task);
-                  widget.fun();
-                  Get.back();
+                onPressed: () async {
+                  Task task = Task(taskName: taskName, isComplete: isComplete);
+                  await context
+                      .read<DatabaseProvider>()
+                      .insertIntoDatabse(task);
+
+                  Navigator.pop(context);
                 }),
           )
         ],
